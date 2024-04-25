@@ -38,11 +38,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Publish Artifacts
-        if: github.ref == 'refs/heads/main' || ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod' }}
+        if: github.ref == 'refs/heads/main' || ${{github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod' }}
         run: |
-          echo $github.ref
-          echo $github.event_name
-          echo $github.event.inputs.Environment
+          echo ${{github.ref}}
+          echo ${{github.event_name}}
+          echo "${{github.event.inputs.Environment}}"
       # - name: Setup Java
       #   uses: actions/setup-java@v3
       #   with:
