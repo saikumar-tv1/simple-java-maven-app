@@ -40,13 +40,14 @@ jobs:
       - name: Publish Artifacts
         # if: github.ref == 'refs/heads/main'
         # if: ${{github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod' }}
-        if: github.ref == 'refs/heads/main' || [${{github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod' }}]
+        if: github.ref == 'refs/heads/main' || [github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod']
         run: |
           echo ${{github.ref}}
           echo ${{github.event_name}}
           echo ${{github.event.inputs.Environment}}
           echo ${{github.ref == 'refs/heads/main'}}
           echo ${{github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod'}}
+          echo ${{ github.ref == 'refs/heads/main' || [github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod']}}
       # - name: Setup Java
       #   uses: actions/setup-java@v3
       #   with:
