@@ -2,6 +2,14 @@
 name: Publish Artifacts test
 on:
   workflow_dispatch:
+    inputs:
+      Environment:
+        description: 'Select environment to deploy'
+        required: true
+        type: choice
+        options:
+          - QA
+          - Prod
   push:
     branches:
       - main
@@ -28,18 +36,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'adopt'
-
-      - name: Run Test Cases
-        run: |
-          mvn clean install
-
       - name: Publish Artifacts
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: github.ref == 'refs/heads/master' || ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod' }}
         run: |
-          mvn --batch-mode deploy
+          echo ${github.ref}
+          echo ${github.event_name}
+          echo ${github.event.inputs.Environment}
+      # - name: Setup Java
+      #   uses: actions/setup-java@v3
+      #   with:
+      #     java-version: '17'
+      #     distribution: 'adopt'
+
+      # - name: Run Test Cases
+      #   run: |
+      #     mvn clean install
+
+      # - name: Publish Artifacts
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     mvn --batch-mode deploy
+
+      
