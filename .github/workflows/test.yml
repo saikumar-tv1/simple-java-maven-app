@@ -42,7 +42,9 @@ jobs:
         run: |
           echo ${{github.ref}}
           echo ${{github.event_name}}
-          echo "${{github.event.inputs.Environment}}"
+          echo ${{github.event.inputs.Environment}}
+          echo ${{github.ref == 'refs/heads/main'}}
+          echo ${{github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod'}}
       # - name: Setup Java
       #   uses: actions/setup-java@v3
       #   with:
