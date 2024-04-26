@@ -40,7 +40,7 @@ jobs:
       - name: Publish Artifacts
         # if: github.ref == 'refs/heads/main'
         # if: ${{github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod' }}
-        if: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod') || (github.ref == 'refs/heads/master') }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod' || github.ref == 'refs/heads/master' }}
         # if: github.ref == 'refs/heads/main' || [github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod']
         run: |
           echo ${{github.ref}}
